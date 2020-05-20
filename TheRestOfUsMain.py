@@ -53,8 +53,11 @@ def main():
     
     print(diff_cases2)
     for i in range(80):
+        n = i + 14
+        if (n > len(new_cases_US)):
+            n = len(new_cases_US)
         plt.clf()
-        y_NY = (np.array(new_cases_US))[i:].reshape(-1,1)
+        y_NY = (np.array(new_cases_US))[i:n].reshape(-1,1)
         x_NY = np.array(range(0, len(y_NY))).reshape(-1,1)
         linear_regressor = LinearRegression()
         linear_regressor.fit(x_NY, y_NY)
@@ -62,6 +65,7 @@ def main():
         plt.figure(dpi=300)
         plt.ylim(ymin=0, ymax=50000)
         slope = linear_regressor.coef_
+        print(slope)
         plt.plot(x_NY, y_NY)
         plt.plot(x_NY, Y_pred, color='red', label=str(slope))
         plt.legend()
